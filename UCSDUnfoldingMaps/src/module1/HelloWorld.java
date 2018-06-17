@@ -11,8 +11,8 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 /** HelloWorld
   * An application with two maps side-by-side zoomed in on different locations.
   * Author: UC San Diego Coursera Intermediate Programming team
-  * @author Your name here
-  * Date: July 17, 2015
+  * @author Dhananjay
+  * Date: June 16, 2018
   * */
 public class HelloWorld extends PApplet
 {
@@ -42,7 +42,7 @@ public class HelloWorld extends PApplet
 		                      // You'll learn more about processing in Module 3
 
 		// This sets the background color for the Applet.  
-		// Play around with these numbers and see what happens!
+		// Play around with thes e numbers and see what happens!
 		this.background(200, 200, 200);
 		
 		// Select a map provider
@@ -66,11 +66,11 @@ public class HelloWorld extends PApplet
 		// There are several providers built-in.
 		// Note if you are working offline you must use the MBTilesMapProvider
 		map1 = new UnfoldingMap(this, 50, 50, 350, 500, provider);
-
+		map2 = new UnfoldingMap(this, 450, 50, 350, 500, provider);
 		// The next line zooms in and centers the map at 
 	    // 32.9 (latitude) and -117.2 (longitude)
 	    map1.zoomAndPanTo(zoomLevel, new Location(32.9f, -117.2f));
-		
+		map2.zoomAndPanTo(zoomLevel,new Location(19.350367, 75.219372));
 		// This line makes the map interactive
 		MapUtils.createDefaultEventDispatcher(this, map1);
 		
@@ -84,6 +84,7 @@ public class HelloWorld extends PApplet
 		// So far we only draw map1...
 		// TODO: Add code so that both maps are displayed
 		map1.draw();
+        map2.draw();
 	}
 
 	

@@ -20,6 +20,9 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
 
 //Parsing library
 import parsing.ParseFeed;
+import processing.core.PFont;
+
+import static java.awt.Color.red;
 
 /** EarthquakeCityMap
  * An application with an interactive map displaying earthquake data.
@@ -77,9 +80,11 @@ public class EarthquakeCityMap extends PApplet {
 	    // to create a new SimplePointMarker for each PointFeature in 
 	    // earthquakes.  Then add each new SimplePointMarker to the 
 	    // List markers (so that it will be added to the map in the line below)
-	    
-	    
-	    // Add the markers to the map so that they are displayed
+		for (PointFeature pointFeature : earthquakes) {
+			markers.add(createMarker(pointFeature));
+		}
+
+		// Add the markers to the map so that they are displayed
 	    map.addMarkers(markers);
 	}
 		
@@ -107,33 +112,62 @@ public class EarthquakeCityMap extends PApplet {
 		
 		// Here is an example of how to use Processing's color method to generate 
 	    // an int that represents the color yellow.  
-	    int yellow = color(255, 255, 0);
-		
-		// TODO (Step 4): Add code below to style the marker's size and color 
-	    // according to the magnitude of the earthquake.  
-	    // Don't forget about the constants THRESHOLD_MODERATE and 
-	    // THRESHOLD_LIGHT, which are declared above.
-	    // Rather than comparing the magnitude to a number directly, compare 
-	    // the magnitude to these variables (and change their value in the code 
-	    // above if you want to change what you mean by "moderate" and "light")
-	    
-	    
-	    // Finally return the marker
-	    return marker;
+		int yellow = color(255, 255, 0);
+		int red = color(255, 0, 0);
+		int blue = color(0, 0, 255);
+
+		// TODO (Step 4): Add code below to style the marker's size and color
+		if (mag < THRESHOLD_LIGHT) {
+			marker.setColor(blue);
+			marker.setRadius(5);
+		} else if (mag >= THRESHOLD_LIGHT && mag <= THRESHOLD_MODERATE) {
+			marker.setColor(yellow);
+			marker.setRadius(10);
+		} else {
+			marker.setColor(red);
+			marker.setRadius(15);
+		}
+		return marker;
 	}
 	
 	public void draw() {
-	    background(10);
-	    map.draw();
-	    addKey();
+		background(10);
+		map.draw();
+		addKey();
 	}
 
 
 	// helper method to draw key in GUI
 	// TODO: Implement this method to draw the key
-	private void addKey() 
-	{	
-		// Remember you can use Processing's graphics methods here
-	
+	private void addKey() {
+		fill(255, 255, 255);
+		rect(25, 50, 150, 250);
+		fill(0, 0, 0);
+		text("Earthquick Key", 45, 70);
+		textSize(14);
+		int yellow = color(255, 255, 0);
+		int red = color(255, 0, 0);
+		int blue = color(0, 0, 255);
+
+		//Colors
+		fill(red);
+		ellipse(40, 115, 15, 15);
+		fill(0, 0, 0);
+		text("5.0+ Magnitude", 54, 120);
+		textSize(14);
+
+		fill(yellow);
+		ellipse(40, 165, 10, 10);
+		fill(0, 0, 0);
+		text("4.0+ Magnitude", 54, 170);
+		textSize(14);
+
+		fill(blue);
+		ellipse(40, 215, 5, 5);
+		fill(0, 0, 0);
+		text("Below 4.0", 54, 215);
+		textSize(14);
+
+
 	}
 }
